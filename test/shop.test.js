@@ -1,5 +1,5 @@
 const { expect } = require("chai");
-const sinon = require("sinon");
+// const sinon = require("sinon");
 const Shop = require("../src/shop.js");
 const Item = require("../src/item.js");
 
@@ -21,11 +21,17 @@ describe("Shop", () => {
       gildedRose.updateQuality();
       expect(gildedRose.items[0].quality).to.equal(19);
     });
-    it("improves a standard item's quality property by 1", () => {
-      let items = [new Item("+5 Dexterity Vest", 10, 20)];
+    it("increases Aged Brie's quality property by 1", () => {
+      let items = [new Item("Aged Brie", 3, 0)];
       let gildedRose = new Shop(items);
       gildedRose.updateQuality();
-      expect(gildedRose.items[0].quality).to.equal(19);
+      expect(gildedRose.items[0].quality).to.equal(1);
+    });
+    it("decreases Aged Brie's sellIn property by 1", () => {
+      let items = [new Item("Aged Brie", 3, 0)];
+      let gildedRose = new Shop(items);
+      gildedRose.updateQuality();
+      expect(gildedRose.items[0].sellIn).to.equal(2);
     });
     it("does not affect Legendary items", () => {
       let items = [new Item("Sulfuras, Hand of Ragnaros", 0, 80)];
