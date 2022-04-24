@@ -2,17 +2,16 @@ class Shop {
   constructor(items = []) {
     this.items = items;
   }
+
   updateQuality() {
     this.items.forEach((item) => {
       if (this.#isLegendary(item)) {
         return;
       }
       this.#decreaseSellIn(item);
-      if (item.name.startsWith("Backstage")) {
-        item.quality = this.#backstageQuality(item);
-      } else {
-        item.quality = this.#calculateQuality(item);
-      }
+      item.quality = item.name.startsWith("Backstage")
+        ? this.#backstageQuality(item)
+        : this.#calculateQuality(item);
     });
 
     return this.items;
@@ -44,6 +43,10 @@ class Shop {
   #calculateQuality(item) {
     let quality = item.quality;
     quality += item.name === "Aged Brie" ? 1 : -1;
+    return this.#qualityLimiter(quality);
+  }
+
+  #qualityLimiter(quality) {
     if (quality < 0) {
       quality = 0;
     } else if (quality > 50) {
