@@ -1,7 +1,8 @@
 const { expect } = require("chai");
-const { Shop, Item } = require("../src/gildedRose.js");
+const Shop = require("../src/shop.js");
+const Item = require("../src/item.js");
 
-describe("Gilded Rose", function () {
+describe("Gilded Rose Feature Test", function () {
   it("should foo", function () {
     const gildedRose = new Shop([new Item("foo", 0, 0)]);
     const items = gildedRose.updateQuality();
