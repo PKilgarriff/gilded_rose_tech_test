@@ -4,7 +4,7 @@ class Shop {
   }
   updateQuality() {
     this.items.forEach((item) => {
-      if (item.name === "Sulfuras, Hand of Ragnaros") {
+      if (this.#isLegendary(item)) {
         return;
       }
       this.#decreaseSellIn(item);
@@ -26,17 +26,17 @@ class Shop {
     return this.items;
   }
 
+  #isLegendary(item) {
+    return item.name === "Sulfuras, Hand of Ragnaros";
+  }
+
   #decreaseSellIn(item) {
     item.sellIn -= 1;
   }
 
   #calculateQuality(item) {
     let quality = item.quality;
-    if (item.name === "Aged Brie") {
-      quality += 1;
-    } else {
-      quality -= 1;
-    }
+    quality += item.name === "Aged Brie" ? 1 : -1;
     if (quality < 0) {
       quality = 0;
     } else if (quality > 50) {

@@ -26,15 +26,15 @@ describe("Shop", function () {
       });
     });
     describe("Aged Brie", function () {
-      it("increases quality by 1", function () {
-        let gildedRose = new Shop([new Item("Aged Brie", 3, 0)]);
-        let items = gildedRose.updateQuality();
-        expect(items[0].quality).to.equal(1);
-      });
       it("decreases sellIn by 1", function () {
         let gildedRose = new Shop([new Item("Aged Brie", 3, 0)]);
         let items = gildedRose.updateQuality();
         expect(items[0].sellIn).to.equal(2);
+      });
+      it("increases quality by 1", function () {
+        let gildedRose = new Shop([new Item("Aged Brie", 3, 0)]);
+        let items = gildedRose.updateQuality();
+        expect(items[0].quality).to.equal(1);
       });
     });
     describe("Legendary Items", function () {
