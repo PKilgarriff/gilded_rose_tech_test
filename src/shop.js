@@ -8,16 +8,8 @@ class Shop {
         return;
       }
       this.#decreaseSellIn(item);
-      if (item.name === "Backstage passes to a TAFKAL80ETC concert") {
-        if (item.sellIn < 0) {
-          item.quality = 0;
-        } else if (item.sellIn < 6) {
-          item.quality += 3;
-        } else if (item.sellIn < 11) {
-          item.quality += 2;
-        } else {
-          item.quality += 1;
-        }
+      if (item.name.startsWith("Backstage")) {
+        item.quality = this.#backstageQuality(item);
       } else {
         item.quality = this.#calculateQuality(item);
       }
@@ -28,6 +20,21 @@ class Shop {
 
   #isLegendary(item) {
     return item.name === "Sulfuras, Hand of Ragnaros";
+  }
+
+  #backstageQuality(item) {
+    let quality = item.quality;
+    let sellIn = item.sellIn;
+    if (sellIn < 0) {
+      quality = 0;
+    } else if (sellIn < 6) {
+      quality += 3;
+    } else if (sellIn < 11) {
+      quality += 2;
+    } else {
+      quality += 1;
+    }
+    return quality;
   }
 
   #decreaseSellIn(item) {
