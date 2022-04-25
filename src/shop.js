@@ -18,7 +18,8 @@ class Shop {
   }
 
   #isLegendary(item) {
-    return item.name === "Sulfuras, Hand of Ragnaros";
+    const legendaryItems = ["Sulfuras, Hand of Ragnaros"];
+    return legendaryItems.includes(item.name);
   }
 
   #backstageQuality(item) {
@@ -33,7 +34,7 @@ class Shop {
     } else {
       quality += 1;
     }
-    return quality;
+    return this.#qualityLimiter(quality);
   }
 
   #decreaseSellIn(item) {
@@ -46,11 +47,11 @@ class Shop {
     return this.#qualityLimiter(quality);
   }
 
-  #qualityLimiter(quality) {
-    if (quality < 0) {
-      quality = 0;
-    } else if (quality > 50) {
-      quality = 50;
+  #qualityLimiter(quality, lowerLimit = 0, upperLimit = 50) {
+    if (quality < lowerLimit) {
+      quality = lowerLimit;
+    } else if (quality > upperLimit) {
+      quality = upperLimit;
     }
     return quality;
   }
