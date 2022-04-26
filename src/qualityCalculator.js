@@ -49,11 +49,11 @@ class QualityCalculator {
 
   static #decayRate(item) {
     let baseRate = this.#isConjured(item) ? 2 : 1;
-    let sellByRate = this.#pastSellBy(item) ? 2 : 1;
+    let sellByRate = this.#isPastSellBy(item) ? 2 : 1;
     return baseRate * sellByRate;
   }
 
-  static #pastSellBy(item) {
+  static #isPastSellBy(item) {
     return item.sellIn < 0;
   }
 
