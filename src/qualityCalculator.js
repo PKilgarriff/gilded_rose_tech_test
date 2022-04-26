@@ -35,7 +35,13 @@ class QualityCalculator {
   }
 
   static #decayRate(item) {
-    return item.sellIn < 0 ? 2 : 1;
+    let baseRate = this.#isConjured(item) ? 2 : 1;
+    let sellByRate = item.sellIn < 0 ? 2 : 1;
+    return baseRate * sellByRate;
+  }
+
+  static #isConjured(item) {
+    return item.name.startsWith("Conjured");
   }
 
   static #qualityLimiter(
