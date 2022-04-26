@@ -3,11 +3,29 @@ class QualityCalculator {
   static qualityMax = 50;
 
   static calculate(item) {
-    return this.#qualityLimiter(
-      item.name.startsWith("Backstage")
-        ? this.#backstageQuality(item)
-        : this.#calculateQuality(item)
-    );
+    return this.#qualityLimiter(this.#calculatedQuality(item));
+  }
+
+  static #calculatedQuality(item) {
+    if (this.#isAged(item)) return this.#agedQuality(item);
+    if (this.#isBackstage(item)) return this.#backstageQuality(item);
+    return this.#standardQuality(item);
+  }
+
+  static #isConjured(item) {
+    return item.name.startsWith("Conjured");
+  }
+
+  static #isAged(item) {
+    return item.name.startsWith("Aged");
+  }
+
+  static #isBackstage(item) {
+    return item.name.startsWith("Backstage");
+  }
+
+  static #agedQuality(item) {
+    return item.quality + 1;
   }
 
   static #backstageQuality(item) {
@@ -25,23 +43,18 @@ class QualityCalculator {
     return quality;
   }
 
-  static #calculateQuality(item) {
-    let quality = item.quality;
-    if (item.name === "Aged Brie") {
-      return (quality += 1);
-    }
-    quality -= 1 * this.#decayRate(item);
-    return quality;
+  static #standardQuality(item) {
+    return item.quality - 1 * this.#decayRate(item);
   }
 
   static #decayRate(item) {
     let baseRate = this.#isConjured(item) ? 2 : 1;
-    let sellByRate = item.sellIn < 0 ? 2 : 1;
+    let sellByRate = this.#pastSellBy(item) ? 2 : 1;
     return baseRate * sellByRate;
   }
 
-  static #isConjured(item) {
-    return item.name.startsWith("Conjured");
+  static #pastSellBy(item) {
+    return item.sellIn < 0;
   }
 
   static #qualityLimiter(
@@ -49,11 +62,8 @@ class QualityCalculator {
     lowerLimit = this.qualityMin,
     upperLimit = this.qualityMax
   ) {
-    if (quality < lowerLimit) {
-      quality = lowerLimit;
-    } else if (quality > upperLimit) {
-      quality = upperLimit;
-    }
+    if (quality < lowerLimit) quality = lowerLimit;
+    if (quality > upperLimit) quality = upperLimit;
     return quality;
   }
 }

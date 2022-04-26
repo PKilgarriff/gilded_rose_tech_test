@@ -9,13 +9,10 @@ class Shop {
 
   updateQuality() {
     this.items.forEach((item) => {
-      if (this.#isLegendary(item)) {
-        return;
-      }
+      if (this.#isLegendary(item)) return;
       this.#decreaseSellIn(item);
       item.quality = this.qualityCalculator.calculate(item);
     });
-
     return this.items;
   }
 
