@@ -1,9 +1,8 @@
 const QualityCalculator = require("./qualityCalculator");
 
 class Shop {
-  static legendaryItems = ["Sulfuras, Hand of Ragnaros"];
-
   constructor(items = [], calculator = QualityCalculator) {
+    this.legendaryItems = ["Sulfuras, Hand of Ragnaros"];
     this.items = items;
     this.qualityCalculator = calculator;
   }

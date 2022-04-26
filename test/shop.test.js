@@ -16,7 +16,6 @@ describe("Shop", function () {
     it("calls the calculate method of QualityCalculator for each item", function () {
       let item = { name: "example", sellIn: 5, quality: 6 };
       let calculatorStub = sinon.stub(QualityCalculator);
-      calculatorStub.isLegendary.returns(false);
       calculatorStub.calculate
         .withArgs(item)
         .onFirstCall()

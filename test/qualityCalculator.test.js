@@ -19,16 +19,6 @@ describe("Quality Calculator", function () {
         expect(QualityCalculator.calculate(item)).to.equal(1);
       });
     });
-    describe("Legendary Items", function () {
-      it("are not affected", function () {
-        let item = {
-          name: "Sulfuras, Hand of Ragnaros",
-          sellIn: 0,
-          quality: 80,
-        };
-        expect(QualityCalculator.calculate(item)).to.equal(80);
-      });
-    });
     describe("Backstage Passes", function () {
       it("quality increases by 1 when there are more than 10 days to the show", function () {
         let item = {
