@@ -24,6 +24,10 @@ describe("Quality Calculator", function () {
         let item = { name: "Conjured Mana Cake", sellIn: 10, quality: 20 };
         expect(QualityCalculator.calculate(item)).to.equal(18);
       });
+      it("once past sell-by, reduces quality by 4", function () {
+        let item = { name: "Conjured Mana Cake", sellIn: -1, quality: 20 };
+        expect(QualityCalculator.calculate(item)).to.equal(16);
+      });
     });
     describe("Backstage Passes", function () {
       it("quality increases by 1 when there are more than 10 days to the show", function () {
