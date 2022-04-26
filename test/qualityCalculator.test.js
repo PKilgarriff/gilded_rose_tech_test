@@ -8,6 +8,10 @@ describe("Quality Calculator", function () {
         let item = { name: "+5 Dexterity Vest", sellIn: 10, quality: 20 };
         expect(QualityCalculator.calculate(item)).to.equal(19);
       });
+      it("once past sell-by, reduces quality by 2", function () {
+        let item = { name: "+5 Dexterity Vest", sellIn: -1, quality: 20 };
+        expect(QualityCalculator.calculate(item)).to.equal(18);
+      });
     });
     describe("Aged Brie", function () {
       it("increases quality by 1", function () {

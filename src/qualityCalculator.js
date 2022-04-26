@@ -35,8 +35,15 @@ class QualityCalculator {
 
   static #calculateQuality(item) {
     let quality = item.quality;
-    quality += item.name === "Aged Brie" ? 1 : -1;
+    if (item.name === "Aged Brie") {
+      return (quality += 1);
+    }
+    quality -= 1 * this.#decayRate(item);
     return quality;
+  }
+
+  static #decayRate(item) {
+    return item.sellIn < 0 ? 2 : 1;
   }
 
   static #qualityLimiter(
