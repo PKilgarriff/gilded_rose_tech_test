@@ -3,19 +3,11 @@ class QualityCalculator {
   static qualityMax = 50;
 
   static calculate(item) {
-    if (this.isLegendary(item)) {
-      return item.quality;
-    }
     return this.#qualityLimiter(
       item.name.startsWith("Backstage")
         ? this.#backstageQuality(item)
         : this.#calculateQuality(item)
     );
-  }
-
-  static isLegendary(item) {
-    const legendaryItems = ["Sulfuras, Hand of Ragnaros"];
-    return legendaryItems.includes(item.name);
   }
 
   static #backstageQuality(item) {
