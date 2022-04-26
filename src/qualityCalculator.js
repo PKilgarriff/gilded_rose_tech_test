@@ -1,13 +1,16 @@
 class QualityCalculator {
+  static qualityMin = 0;
+  static qualityMax = 50;
+
   static calculate(item) {
-    let quality = item.quality;
     if (this.isLegendary(item)) {
       return item.quality;
     }
-    quality = item.name.startsWith("Backstage")
-      ? this.#backstageQuality(item)
-      : this.#calculateQuality(item);
-    return this.#qualityLimiter(quality);
+    return this.#qualityLimiter(
+      item.name.startsWith("Backstage")
+        ? this.#backstageQuality(item)
+        : this.#calculateQuality(item)
+    );
   }
 
   static isLegendary(item) {
@@ -36,7 +39,11 @@ class QualityCalculator {
     return quality;
   }
 
-  static #qualityLimiter(quality, lowerLimit = 0, upperLimit = 50) {
+  static #qualityLimiter(
+    quality,
+    lowerLimit = this.qualityMin,
+    upperLimit = this.qualityMax
+  ) {
     if (quality < lowerLimit) {
       quality = lowerLimit;
     } else if (quality > upperLimit) {
