@@ -45,7 +45,37 @@ npm install
 
 ### Run Program
 
-<!-- How to run the program -->
+The Gilded Rose can be run in a REPL as follows:
+
+```zsh
+cd gilded_rose_tech_test # if you are not already there
+cd src
+node
+```
+
+```
+> .load ./item.js
+[class item]
+> .load ./shop.js
+[class Shop]
+> let vest = new Item("+5 Dexterity Vest", 3, 20);
+undefined
+> let brie = new Item("Aged Brie", 2, 0);
+undefined
+> let items = [vest, brie];
+undefined
+> const shop = new Shop(items);
+undefined
+> shop.updateQuality();
+[
+  Item { name: '+5 Dexterity Vest', sellIn: 2, quality: 19 },
+  Item { name: 'Aged Brie', sellIn: 1, quality: 1 }
+]
+```
+
+#### Screenshot of Example Run
+
+![Gilded Rose in Node](./docs/images/example.png)
 
 ### Test Program
 
@@ -91,8 +121,9 @@ The program is made up of three classes:
 ## Next Steps
 
 - incorporate improvements based on self-assessment form
-- decide upon route to actually run code (exampleRun.js vs REPL)
-  - include screenshot of functioning code
+  - find pattern between Quality methods and DRY up code
+- ~decide upon route to actually run code (exampleRun.js vs REPL)~
+  - ~include screenshot of functioning code~
 - submit for Coach review
 
 # Appendix
