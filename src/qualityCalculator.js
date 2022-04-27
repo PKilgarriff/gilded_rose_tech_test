@@ -1,6 +1,12 @@
 class QualityCalculator {
   static qualityMin = 0;
   static qualityMax = 50;
+  static itemModifiers = {
+    Aged: +1,
+    // Backstage: ,
+    Conjured: -2,
+    Standard: -1,
+  };
 
   static calculate(item) {
     return this.#qualityLimiter(this.#calculatedQuality(item));
@@ -29,18 +35,14 @@ class QualityCalculator {
   }
 
   static #backstageQuality(item) {
-    let quality = item.quality;
-    let sellIn = item.sellIn;
-    if (sellIn < 0) {
-      quality = 0;
-    } else if (sellIn < 6) {
-      quality += 3;
-    } else if (sellIn < 11) {
-      quality += 2;
+    if (this.#isPastSellBy(item)) return 0;
+    if (item.sellIn < 6) {
+      return item.quality + 3;
+    } else if (item.sellIn < 11) {
+      return item.quality + 2;
     } else {
-      quality += 1;
+      return item.quality + 1;
     }
-    return quality;
   }
 
   static #standardQuality(item) {
